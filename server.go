@@ -21,6 +21,7 @@ type Error struct {
 
 type Body struct {
 	Sentences []string `json:"sentences,omitempty"`
+	Language  string   `json:"language"`
 }
 
 func Tokenize(res http.ResponseWriter, req *http.Request) {
@@ -30,7 +31,7 @@ func Tokenize(res http.ResponseWriter, req *http.Request) {
 
 	_ = json.NewDecoder(req.Body).Decode(&body)
 
-	tokens = service.Tokenize(body.Sentences, 10)
+	tokens = service.Tokenize(body.Sentences, body.Language, 10)
 
 	for token := range tokens {
 		results = append(results, token)
