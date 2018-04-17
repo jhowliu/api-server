@@ -31,11 +31,7 @@ func Tokenize(res http.ResponseWriter, req *http.Request) {
 
 	_ = json.NewDecoder(req.Body).Decode(&body)
 
-	tokens = service.Tokenize(body.Sentences, body.Language, 10)
-
-	for token := range tokens {
-		results = append(results, token)
-	}
+	results = service.Tokenize(body.Sentences, body.Language, 10)
 
 	res.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(res).Encode(Response{
