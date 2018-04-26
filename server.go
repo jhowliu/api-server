@@ -26,7 +26,6 @@ type Body struct {
 
 func Tokenize(res http.ResponseWriter, req *http.Request) {
 	var body Body
-	var tokens chan []string
 	var results [][]string
 
 	_ = json.NewDecoder(req.Body).Decode(&body)
