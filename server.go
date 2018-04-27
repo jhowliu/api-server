@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/jhowliu/service"
@@ -26,7 +27,6 @@ type Body struct {
 
 func Tokenize(res http.ResponseWriter, req *http.Request) {
 	var body Body
-	var tokens chan []string
 	var results [][]string
 
 	_ = json.NewDecoder(req.Body).Decode(&body)
@@ -43,7 +43,9 @@ func Tokenize(res http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/tokenize", Tokenize).Methods("POST")
-	log.Printf("Sever is running on Port %d.\n", 8000)
-	log.Fatal(http.ListenAndServe(":8000", router))
+	//router.HandleFunc("/tokenize", Tokenize).Methods("POST")
+	PORT := os.Getenv("PORT")
+	log.Printf("PROT=%s", PORT)
+	log.Printf("Sever is running on Port %s.\n", PORT)
+	log.Fatal(http.ListenAndServe(":"+PORT, router))
 }
