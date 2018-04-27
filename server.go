@@ -43,9 +43,8 @@ func Tokenize(res http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	//router.HandleFunc("/tokenize", Tokenize).Methods("POST")
+	router.HandleFunc("/tokenize", Tokenize).Methods("POST")
 	PORT := os.Getenv("PORT")
-	log.Printf("PROT=%s", PORT)
 	log.Printf("Sever is running on Port %s.\n", PORT)
 	log.Fatal(http.ListenAndServe(":"+PORT, router))
 }
